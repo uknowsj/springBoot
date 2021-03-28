@@ -8,20 +8,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class item {
+public class OrderDetail {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //mysql은 Identity로
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private LocalDateTime orderAt;
 
-    private Integer price;
+    private Long userId;
 
-    private String content;
+    private Long itemId;
 }
