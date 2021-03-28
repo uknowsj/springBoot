@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class UserRepositoryTest extends StudyApplicationTests{
 
@@ -19,17 +20,27 @@ public class UserRepositoryTest extends StudyApplicationTests{
         //Strin sql = "INSERT INTO user(%s,%s,%d) values (account,email,age);
         //jpa는 오브젝트를 가지고 데이터베이스를 관리할수있게 도와줌
         User user = new User(); //di핵심은 싱글톤?
-        user.setAccount("TestUser01"); //not null
-        user.setEmail("TestUser01@gmail.com");
-        user.setPhoneNumber("010-1111-1111");
+        user.setAccount("TestUser02"); //not null
+        user.setEmail("TestUser02@gmail.com");
+        user.setPhoneNumber("010-1111-2222");
         user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("TestUser01");
+        user.setCreatedBy("TestUser02");
 
         User newUser = userRepository.save(user); //user를 넘기고 DB에 저장된 새user객체를 리턴받음
         System.out.println("newUser: "+newUser);
 
     }
-    public void read(){}
+    
+    @Test
+    public void read(){
+        Optional<User> user = userRepository.findById(2L);
+
+        //찾는user가 있으면 실행
+        user.ifPresent(selectUser ->{
+            System.out.println("user : "+selectUser);
+            System.out.println("email: "+selectUser.getEmail());
+        });
+    }
     public void update(){}
     public void delete(){}
 }
