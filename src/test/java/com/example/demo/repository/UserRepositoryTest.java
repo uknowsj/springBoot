@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -58,15 +59,16 @@ public class UserRepositoryTest extends StudyApplicationTests{
     }
 
     @Test
+    @Transactional//쿼리를 실행해도 마지막에 롤백해줘서 DB에는 영향없음
     public void delete(){
-        Optional<User> user = userRepository.findById(2L);
+        Optional<User> user = userRepository.findById(1L);
         Assert.assertTrue(user.isPresent()); //반드시 true. 아니면 오류남
 
         user.ifPresent(selectUser->{
             userRepository.delete(selectUser);
         });
 
-        Optional<User> deleteUser = userRepository.findById(2L);
+        Optional<User> deleteUser = userRepository.findById(1L);
         Assert.assertFalse(deleteUser.isPresent());//반드시 false;
     }
 }
