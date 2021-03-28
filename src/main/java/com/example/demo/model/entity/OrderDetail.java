@@ -3,17 +3,16 @@ package com.example.demo.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString(exclude={"user","item"})
 public class OrderDetail {
 
     @Id
@@ -22,7 +21,10 @@ public class OrderDetail {
 
     private LocalDateTime orderAt;
 
-    private Long userId;
+    
+    @ManyToOne //자신은 1 상대 유저는 N
+    private User user; //Hibernate에서 user_id 찾음
 
-    private Long itemId;
+    @ManyToOne
+    private Item item;
 }
