@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class item {
+public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //mysql은 Identity로
