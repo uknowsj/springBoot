@@ -30,7 +30,7 @@ public class UserRepositoryTest extends StudyApplicationTests{
         System.out.println("newUser: "+newUser);
 
     }
-    
+
     @Test
     public void read(){
         Optional<User> user = userRepository.findById(2L);
@@ -41,6 +41,19 @@ public class UserRepositoryTest extends StudyApplicationTests{
             System.out.println("email: "+selectUser.getEmail());
         });
     }
-    public void update(){}
+
+    @Test
+    public void update(){
+        Optional<User> user = userRepository.findById(2L);
+
+        user.ifPresent(selectUser->{
+            selectUser.setAccount("updated_Account");
+            selectUser.setUpdatedAt(LocalDateTime.now());
+            selectUser.setUpdatedBy("update method()");
+
+            userRepository.save(selectUser);
+        });
+        //id값을 기준으로 변경이 되기 때문에 update에서 setId(3L) 이렇게하면 2번 row가 아닌 3번row에 있는 데이터가 바뀌게 됨
+    }
     public void delete(){}
 }
