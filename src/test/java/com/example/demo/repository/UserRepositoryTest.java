@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.StudyApplicationTests;
 import com.example.demo.model.entity.User;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -55,5 +56,17 @@ public class UserRepositoryTest extends StudyApplicationTests{
         });
         //id값을 기준으로 변경이 되기 때문에 update에서 setId(3L) 이렇게하면 2번 row가 아닌 3번row에 있는 데이터가 바뀌게 됨
     }
-    public void delete(){}
+
+    @Test
+    public void delete(){
+        Optional<User> user = userRepository.findById(2L);
+        Assert.assertTrue(user.isPresent()); //반드시 true. 아니면 오류남
+
+        user.ifPresent(selectUser->{
+            userRepository.delete(selectUser);
+        });
+
+        Optional<User> deleteUser = userRepository.findById(2L);
+        Assert.assertFalse(deleteUser.isPresent());//반드시 false;
+    }
 }
