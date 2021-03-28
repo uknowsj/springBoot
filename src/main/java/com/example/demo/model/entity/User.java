@@ -19,14 +19,25 @@ public class User {
     private Long id;
     //@Column(name="account") //변수명이 동일하다면 마찬가지로 생략가능
     private String account;
+
+    private String password;
+
+    private String status;
+
     private String email;
+
     private String phoneNumber;
+
+    private LocalDateTime registeredAt;
+
+    private LocalDateTime unregisteredAt;
+
     private LocalDateTime createdAt;
     private String createdBy;
     private LocalDateTime updatedAt;
     private String updatedBy;
 
-    //1:N
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
-    private List<OrderDetail> orderDetailList;
+//    //1:N
+//    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
+//    private List<OrderDetail> orderDetailList;
 }
