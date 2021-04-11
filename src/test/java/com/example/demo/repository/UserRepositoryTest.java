@@ -19,11 +19,11 @@ public class UserRepositoryTest extends StudyApplicationTests{
 
     @Test //test에서 진행할 때 꼭 써줘야함
     public void  create(){
-        String account = "Test01";
-        String password = "Test01";
+        String account = "Test02";
+        String password = "Test02";
         String status = "REGISTERED";
-        String email = "Test01@gmail.com";
-        String phoneNumber = "010-1111-2222";
+        String email = "Test02@gmail.com";
+        String phoneNumber = "010-1111-2221";
         LocalDateTime registeredAt = LocalDateTime.now();
         LocalDateTime createdAt = LocalDateTime.now();
         String createdBy = "AdminServer";
@@ -35,8 +35,11 @@ public class UserRepositoryTest extends StudyApplicationTests{
         user.setEmail(email);
         user.setPhoneNumber(phoneNumber);
         user.setRegisteredAt(registeredAt);
-        user.setCreatedAt(createdAt);
-        user.setCreatedBy(createdBy);
+//        user.setCreatedAt(createdAt);
+//        user.setCreatedBy(createdBy);
+
+        //생성자 인자 개수와 상관없이 넣을 수 있음
+        User u = User.builder().account(account).password(password).status(status).build();
 
         User newUser = userRepository.save(user);
 
@@ -47,6 +50,9 @@ public class UserRepositoryTest extends StudyApplicationTests{
     @Transactional
     public void read(){
         User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
+
+        //체인패턴, 객체를 찾은 다음 업데이트 할 때
+        //user.setEmail("").setPhoneNumber("");
 
         //사용자가 어떤 주문바구니를 가지고 있는지
         user.getOrderGroupList().stream().forEach(orderGroup -> {
