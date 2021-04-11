@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.SearchParam;
+import com.example.demo.model.network.Header;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,5 +34,8 @@ public class GetController {
     //네트워크 통신할 때 json형식으로 통신 String이 아닌 SearchParam으로 받으면 됨
     //스프링부트가 잭슨라이브러리내장하고있어서 객체로 리턴하면 알아서 json형태로 리턴
 
-
+    @GetMapping("/header")
+    public Header getHeader(){
+        return Header.builder().resultCode("OK").description("OK").build();
+    }
 }
