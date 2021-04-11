@@ -3,18 +3,18 @@ package com.example.demo.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
+@ToString(exclude = {"user","orderDetailList"})
 public class OrderGroup {
 
 
@@ -48,7 +48,12 @@ public class OrderGroup {
 
     private String updatedBy;
 
+    @ManyToOne
+    private User user; //user 엔티티의 mappedBy에 해당하는 변수명과 일치해야함
+//    private Long userId; //외래키
 
-
+    //OrderGroup 1 : N OrderDetail
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "orderGroup")
+    private List<OrderDetail> orderDetailList;
 
 }
