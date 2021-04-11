@@ -19,32 +19,35 @@ public class UserRepositoryTest extends StudyApplicationTests{
 
     @Test //test에서 진행할 때 꼭 써줘야함
     public void  create(){
-        //Strin sql = "INSERT INTO user(%s,%s,%d) values (account,email,age);
-        //jpa는 오브젝트를 가지고 데이터베이스를 관리할수있게 도와줌
-        User user = new User(); //di핵심은 싱글톤?
-        user.setAccount("TestUser02"); //not null
-        user.setEmail("TestUser02@gmail.com");
-        user.setPhoneNumber("010-1111-2222");
-        user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("TestUser02");
+        String account = "Test01";
+        String password = "Test01";
+        String status = "REGISTERED";
+        String email = "Test01@gmail.com";
+        String phoneNumber = "010-1111-2222";
+        LocalDateTime registeredAt = LocalDateTime.now();
+        LocalDateTime createdAt = LocalDateTime.now();
+        String createdBy = "AdminServer";
 
-        User newUser = userRepository.save(user); //user를 넘기고 DB에 저장된 새user객체를 리턴받음
-        System.out.println("newUser: "+newUser);
+        User user = new User();
+        user.setAccount(account);
+        user.setPassword(password);
+        user.setStatus(status);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setRegisteredAt(registeredAt);
+        user.setCreatedAt(createdAt);
+        user.setCreatedBy(createdBy);
 
+        User newUser = userRepository.save(user);
+
+        Assert.assertNotNull(newUser);
     }
 
     @Test
     @Transactional
     public void read(){
-        Optional<User> user = userRepository.findByAccount("TestUser02");
-
-        //찾는user가 있으면 실행
-        user.ifPresent(selectUser ->{
-
-            selectUser.getOrderDetailList().stream().forEach(detail->{
-                System.out.println(detail.getItem());
-            });
-        });
+        User user = userRepository.findFirstByPhoneNumberOrderByIdDesc("010-1111-2222");
+        Assert.assertNotNull(user);
     }
 
     @Test

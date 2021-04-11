@@ -42,4 +42,6 @@ public class Item {
 
     private String updatedBy;
 
+    private Long partnerId; //외래키키
+
 }
